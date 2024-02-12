@@ -1,3 +1,5 @@
+using Blockchain.Domain.Entities;
+using Blockchain.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blockchain.API.Controllers
@@ -7,11 +9,11 @@ namespace Blockchain.API.Controllers
     public class UserController : ControllerBase
     {
 
-        [HttpPost(Name = "GetWeatherForecast")]
-        public IEnumerable<string> Create()
+        [HttpPost(Name = "Create User")]
+        public async Task<Guid> Create([FromServices] IUserService service, [FromBody] string name)
         {
-           //Create user
-           return new List<string>();
+            var user = new User(name);
+            return await service.Create(user);
         }
     }
 }

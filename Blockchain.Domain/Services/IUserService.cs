@@ -4,6 +4,6 @@ namespace Blockchain.Domain.Services
 {
     public interface IUserService
     {
-        public void Create(User user);
+        public Task<Guid> Create(User user);
     }
 }
