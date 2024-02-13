@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blockchain.Domain\Blockchain.Domain.csproj" />
+    <ProjectReference Include="..\Blockchain.Engine\Blockchain.Engine.csproj" />
     <ProjectReference Include="..\Blockchain.Repository\Blockchain.Repository.csproj" />
   </ItemGroup>
 

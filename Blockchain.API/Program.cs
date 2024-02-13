@@ -1,5 +1,6 @@
 using Blockchain.Application.Services;
 using Blockchain.Domain.Services;
+using Blockchain.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWalletService, WalletService>();
+builder.Services.AddScoped<IQueueService, QueueService>();
 
 var app = builder.Build();
 
