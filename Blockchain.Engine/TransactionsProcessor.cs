@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Blockchain.Domain.Services;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -8,6 +9,15 @@ namespace Blockchain.Engine
 {
     public class TransactionsProcessor : BackgroundService
     {
+        private readonly IBlockchainService _blockchainService;
+        private readonly IQueueService _queueService;
+
+        public TransactionsProcessor(IBlockchainService blockchainService, IQueueService queueService)
+        {
+            _blockchainService = blockchainService;
+            _queueService = queueService;
+        }
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var factory = new ConnectionFactory
@@ -54,7 +64,9 @@ namespace Blockchain.Engine
         {
             var data = JsonConvert.DeserializeObject<object>(message);    
 
-            //var block = new Block();
+            var block = _blockchainService.CreateBlock(data) as Block;
+
+            _queueService.SendToBlocksQueue(block);
         }
       
     }

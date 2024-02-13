@@ -5,5 +5,6 @@ namespace Blockchain.Domain.Services
     public interface IQueueService
     {
         public void SendToAwaitingProcessingQueue(Data data);
+        public void SendToBlocksQueue(object block);
     }
 }

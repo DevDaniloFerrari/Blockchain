@@ -53,7 +53,7 @@ namespace Blockchain.Infrastructure.Services
             return GetLastBlock().Header.BlockHash;
         }
 
-        public Block CreateBlock(object data)
+        public object CreateBlock(object data)
         {
             return new Block(GetNextSequence(), data, GetPreviousBlockHash());
         }
