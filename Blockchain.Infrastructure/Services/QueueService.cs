@@ -19,9 +19,13 @@ namespace Blockchain.Infrastructure.Services
             
             using
             var channel = connection.CreateModel();
-            
-            channel.QueueDeclare("transactions", exclusive: false);
-            
+
+            channel.QueueDeclare(queue: "transactions",
+                                durable: false,
+                                exclusive: false,
+                                autoDelete: false,
+                                arguments: null);
+
             var json = JsonConvert.SerializeObject(data);
             var body = Encoding.UTF8.GetBytes(json);
             
