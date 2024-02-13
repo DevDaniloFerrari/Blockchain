@@ -21,7 +21,7 @@ namespace Blockchain.Infrastructure.Services
             var channel = connection.CreateModel();
 
             channel.QueueDeclare(queue: "transactions",
-                                durable: false,
+                                durable: true,
                                 exclusive: false,
                                 autoDelete: false,
                                 arguments: null);
