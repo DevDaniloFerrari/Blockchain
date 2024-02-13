@@ -1,9 +1,14 @@
-﻿namespace Blockchain.Engine
+﻿using Google.Cloud.Firestore;
+
+namespace Blockchain.Engine
 {
+    [FirestoreData]
     public class Blockchain
     {
-        private IEnumerable<Block> Chain { get; set; }
-        private readonly char PowPrefix = '0';
+        [FirestoreProperty]
+        public IEnumerable<Block> Chain { get; private set; }
+        [FirestoreProperty]
+        public string PowPrefix { get; private set; }
 
         public Blockchain()
         {
@@ -11,26 +16,13 @@
             {
                 CreateGenesisBlock()
             };
+
+            PowPrefix = "0";
         }
 
         private static Block CreateGenesisBlock()
         {
-            return new Block(0, new Data());
-        }
-
-        private int GetNextSequence()
-        {
-            return Chain.Last().Payload.Sequence + 1;
-        }
-
-        private string GetPreviousBlockHash()
-        {
-            return Chain.Last().Header.BlockHash;
-        }
-
-        public Block CreateBlock(Data data)
-        {
-            return new Block(GetNextSequence(), data, GetPreviousBlockHash());
+            return new Block(0, new {});
         }
     }
 }

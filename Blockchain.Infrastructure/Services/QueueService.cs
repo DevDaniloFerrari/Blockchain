@@ -1,5 +1,5 @@
-﻿using Blockchain.Domain.Services;
-using Blockchain.Engine;
+﻿using Blockchain.Domain.Entities;
+using Blockchain.Domain.Services;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;

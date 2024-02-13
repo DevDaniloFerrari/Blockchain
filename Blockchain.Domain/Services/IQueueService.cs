@@ -1,4 +1,4 @@
-﻿using Blockchain.Engine;
+﻿using Blockchain.Domain.Entities;
 
 namespace Blockchain.Domain.Services
 {

@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
 namespace Blockchain.Engine
 {
-    public class Processor : BackgroundService
+    public class TransactionsProcessor : BackgroundService
     {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -34,7 +35,7 @@ namespace Blockchain.Engine
 
                 Console.WriteLine($"Received message: {message}");
 
-                Thread.Sleep(3000);
+                ProcessTransaction(message);
 
                 Console.WriteLine($"Processing completed for message: {message}");
 
@@ -47,6 +48,13 @@ namespace Blockchain.Engine
             {
                 await Task.Delay(1000, stoppingToken);
             }
+        }
+
+        private void ProcessTransaction(string message)
+        {
+            var data = JsonConvert.DeserializeObject<object>(message);    
+
+            //var block = new Block();
         }
       
     }
