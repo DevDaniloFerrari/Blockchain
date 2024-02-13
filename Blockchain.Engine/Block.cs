@@ -4,10 +4,16 @@ namespace Blockchain.Engine
 {
     public class Block
     {
-        public Block(int nonce, int sequence, Data data)
+        public Block(int sequence, Data data)
         {
             Payload = new Payload(sequence, data);
-            Header = new Header(nonce, Payload);
+            Header = new Header(Payload);
+        }
+
+        public Block(int sequence, Data data, string previousHash)
+        {
+            Payload = new Payload(sequence, data, previousHash);
+            Header = new Header(Payload);
         }
 
         public Payload Payload { get; set; }
@@ -16,9 +22,8 @@ namespace Blockchain.Engine
 
     public class Header
     {
-        public Header(int nonce, Payload payload)
+        public Header(Payload payload)
         {
-            Nonce = nonce;
             BlockHash = Helper.ComputeSha256Hash(JsonConvert.SerializeObject(payload));
         }
 
@@ -34,6 +39,14 @@ namespace Blockchain.Engine
             Timesetamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
             Data = data;
             PreviousHash = string.Empty;
+        }
+
+        public Payload(int sequence, Data data, string previousHash)
+        {
+            Sequence = sequence;
+            Timesetamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
+            Data = data;
+            PreviousHash = previousHash;
         }
 
         public int Sequence { get; set; }
