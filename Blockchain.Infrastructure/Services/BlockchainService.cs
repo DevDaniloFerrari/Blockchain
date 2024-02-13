@@ -1,4 +1,5 @@
 ﻿using Blockchain.Domain.Services;
+using Blockchain.Engine;
 using Google.Cloud.Firestore;
 
 namespace Blockchain.Infrastructure.Services
@@ -6,7 +7,7 @@ namespace Blockchain.Infrastructure.Services
     public class BlockchainService : IBlockchainService
     {
         private readonly FirestoreDb _db;
-        private Engine.Blockchain blockchain { get; set; }
+        private Engine.Blockchain _blockchain { get; set; }
         private const string Collection = "blockchain";
 
         public BlockchainService()
@@ -19,8 +20,8 @@ namespace Blockchain.Infrastructure.Services
             {
                 foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
                 {
-                    blockchain = documentSnapshot.ConvertTo<Engine.Blockchain>();
-                    Console.WriteLine(blockchain.PowPrefix);
+                    _blockchain = documentSnapshot.ConvertTo<Engine.Blockchain>();
+                    Console.WriteLine(_blockchain.PowPrefix);
                 }
             });
         }
@@ -37,18 +38,24 @@ namespace Blockchain.Infrastructure.Services
                 await collection.AddAsync(blockchain);
         }
 
-        //private async int GetNextSequence()
-        //{
-        //}
+        private Block GetLastBlock()
+        {
+            return _blockchain.Chain.Last();
+        }
 
-        //private async string GetPreviousBlockHash()
-        //{
-        //    return Chain.Last().Header.BlockHash;
-        //}
+        private int GetNextSequence()
+        {
+            return GetLastBlock().Payload.Sequence + 1;
+        }
 
-        //public Block CreateBlock(object data)
-        //{
-        //    return new Block(GetNextSequence(), data, GetPreviousBlockHash());
-        //}
+        private string GetPreviousBlockHash()
+        {
+            return GetLastBlock().Header.BlockHash;
+        }
+
+        public Block CreateBlock(object data)
+        {
+            return new Block(GetNextSequence(), data, GetPreviousBlockHash());
+        }
     }
 }
