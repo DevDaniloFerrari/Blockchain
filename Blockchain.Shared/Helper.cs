@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Blockchain.Engine
+namespace Blockchain.Shared
 {
     public static class Helper
     {
@@ -19,7 +19,7 @@ namespace Blockchain.Engine
         public static bool IsHashProofed(string hash, int difficulty, string prefix)
         {
             var value = string.Concat(Enumerable.Repeat(prefix, difficulty));
-            return hash.StartsWith(value); 
+            return hash.StartsWith(value);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Blockchain.Engine;
+﻿using Blockchain.Domain.Entities;
+using Blockchain.Shared;
 using Google.Cloud.Firestore;
 using Newtonsoft.Json;
 using RabbitMQ.Client;

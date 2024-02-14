@@ -1,19 +1,20 @@
-﻿using Google.Cloud.Firestore;
+﻿using Blockchain.Shared;
+using Google.Cloud.Firestore;
 using Newtonsoft.Json;
 
-namespace Blockchain.Engine
+namespace Blockchain.Domain.Entities
 {
     [FirestoreData]
     public class Block
     {
         public Block() { }
-        public Block(int sequence, object data)
+        public Block(int sequence, Data data)
         {
             Payload = new Payload(sequence, data);
             Header = new Header(Payload);
         }
 
-        public Block(int sequence, object data, string previousHash)
+        public Block(int sequence, Data data, string previousHash)
         {
             Payload = new Payload(sequence, data, previousHash);
             Header = new Header(Payload);
@@ -30,7 +31,7 @@ namespace Blockchain.Engine
     {
         public Header()
         {
-            
+
         }
         public Header(Payload payload)
         {
@@ -39,7 +40,7 @@ namespace Blockchain.Engine
 
         [FirestoreProperty]
         public int Nonce { get; set; }
-        
+
         [FirestoreProperty]
         public string BlockHash { get; set; }
     }
@@ -49,35 +50,34 @@ namespace Blockchain.Engine
     {
         public Payload()
         {
-            
+
         }
-        public Payload(int sequence, object data)
+        public Payload(int sequence, Data data)
         {
             Sequence = sequence;
-            Timesetamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
+            Timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
             Data = data;
             PreviousHash = string.Empty;
         }
 
-        public Payload(int sequence, object data, string previousHash)
+        public Payload(int sequence, Data data, string previousHash)
         {
             Sequence = sequence;
-            Timesetamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
+            Timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
             Data = data;
             PreviousHash = previousHash;
         }
 
         [FirestoreProperty]
         public int Sequence { get; set; }
-        
+
         [FirestoreProperty]
-        public string Timesetamp { get; set; }
-        
+        public string Timestamp { get; set; }
+
         [FirestoreProperty]
-        public object Data { get; set; }
-        
+        public Data Data { get; set; }
+
         [FirestoreProperty]
         public string PreviousHash { get; set; }
     }
-
 }

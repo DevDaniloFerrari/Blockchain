@@ -1,5 +1,5 @@
-﻿using Blockchain.Domain.Services;
-using Blockchain.Engine;
+﻿using Blockchain.Domain.Entities;
+using Blockchain.Domain.Services;
 using Google.Cloud.Firestore;
 
 namespace Blockchain.Infrastructure.Services
@@ -7,7 +7,7 @@ namespace Blockchain.Infrastructure.Services
     public class BlockchainService : IBlockchainService
     {
         private readonly FirestoreDb _db;
-        private Engine.Blockchain _blockchain { get; set; }
+        private Block _lastBlock { get; set; }
         private const string Collection = "blockchain";
 
         public BlockchainService()
@@ -20,40 +20,41 @@ namespace Blockchain.Infrastructure.Services
             {
                 foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
                 {
-                    _blockchain = documentSnapshot.ConvertTo<Engine.Blockchain>();
-                    Console.WriteLine(_blockchain.PowPrefix);
+                    _lastBlock = documentSnapshot.ConvertTo<Block>();
                 }
             });
         }
 
         public async Task CreateBlockchain()
         {
-            var blockchain = new Engine.Blockchain();
 
             var collection = _db.Collection(Collection);
 
             var snapshot = await collection.Limit(1).GetSnapshotAsync();
 
             if (snapshot.Count == 0)
-                await collection.AddAsync(blockchain);
+            {
+                var genesisBLock = CreateGenesisBlock();
+                await collection.AddAsync(genesisBLock);
+            }
         }
 
-        private Block GetLastBlock()
+        private static Block CreateGenesisBlock()
         {
-            return _blockchain.Chain.Last();
+            return new Block(0, new Data());
         }
 
         private int GetNextSequence()
         {
-            return GetLastBlock().Payload.Sequence + 1;
+            return _lastBlock.Payload.Sequence + 1;
         }
 
         private string GetPreviousBlockHash()
         {
-            return GetLastBlock().Header.BlockHash;
+            return _lastBlock.Header.BlockHash;
         }
 
-        public object CreateBlock(object data)
+        public Block CreateBlock(Data data)
         {
             return new Block(GetNextSequence(), data, GetPreviousBlockHash());
         }

@@ -12,7 +12,7 @@ namespace Blockchain.Application.Services
             _queueService = queueService;
         }
 
-        public void SendMoney(Guid from, Guid to, decimal amount)
+        public void SendMoney(string from, string to, double amount)
         {
             var data = new Data(from, to, amount);
 

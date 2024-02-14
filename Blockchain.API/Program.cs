@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHostedService<BlockchainEngine>();
-builder.Services.AddHostedService<TransactionsProcessor>();
+//builder.Services.AddHostedService<TransactionsProcessor>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWalletService, WalletService>();

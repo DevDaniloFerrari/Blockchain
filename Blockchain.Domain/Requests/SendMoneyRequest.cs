@@ -2,8 +2,8 @@
 {
     public class SendMoneyRequest
     {
-        public Guid From { get; set; }
-        public Guid To { get; set; }
-        public decimal Amout { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
+        public double Amout { get; set; }
     }
 }

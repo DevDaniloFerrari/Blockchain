@@ -2,6 +2,6 @@
 {
     public interface IWalletService
     {
-        public void SendMoney(Guid from, Guid to, decimal amount);
+        public void SendMoney(string from, string to, double amount);
     }
 }

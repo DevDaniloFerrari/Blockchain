@@ -1,4 +1,5 @@
-﻿using Blockchain.Domain.Services;
+﻿using Blockchain.Domain.Entities;
+using Blockchain.Domain.Services;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -62,9 +63,9 @@ namespace Blockchain.Engine
 
         private void ProcessTransaction(string message)
         {
-            var data = JsonConvert.DeserializeObject<object>(message);    
+            var data = JsonConvert.DeserializeObject<Data>(message);    
 
-            var block = _blockchainService.CreateBlock(data) as Block;
+            var block = _blockchainService.CreateBlock(data);
 
             _queueService.SendToBlocksQueue(block);
         }
