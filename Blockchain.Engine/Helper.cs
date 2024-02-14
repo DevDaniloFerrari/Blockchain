@@ -15,5 +15,11 @@ namespace Blockchain.Engine
 
             return builder.ToString();
         }
+
+        public static bool IsHashProofed(string hash, int difficulty, string prefix)
+        {
+            var value = string.Concat(Enumerable.Repeat(prefix, difficulty));
+            return hash.StartsWith(value); 
+        }
     }
 }
