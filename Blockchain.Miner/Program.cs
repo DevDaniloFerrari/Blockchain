@@ -80,14 +80,9 @@ async Task AddToChain(Block blok)
 {
     var db = FirestoreDb.Create("blockchain-b2f62");
 
-    var documentReference = db.Collection("blockchain").Document("vOz5S6lDBhl6Q3eSERcR");
+    var documentReference = db.Collection("blockchain");
 
-    var snapshot = await documentReference.GetSnapshotAsync();
-    var blocks = snapshot.GetValue<List<Block>>("Chain");
-
-    blocks.Add(blok);
-
-    await documentReference.UpdateAsync("Chain", blocks);
+    await documentReference.AddAsync(blok);
 }
 
 Console.Read();

@@ -14,7 +14,7 @@ namespace Blockchain.Infrastructure.Services
         {
             _db = FirestoreDb.Create("blockchain-b2f62");
 
-            var query = _db.Collection(Collection).Limit(1);
+            var query = _db.Collection(Collection).OrderByDescending("Payload.Timestamp").Limit(1);
 
             var listener = query.Listen(snapshot =>
             {
