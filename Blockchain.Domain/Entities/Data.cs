@@ -9,11 +9,11 @@ namespace Blockchain.Domain.Entities
         {
 
         }
-        public Data(string from, string to, double amout)
+        public Data(string from, string to, double amount)
         {
             From = from;
             To = to;
-            Amout = amout;
+            Amount = amount;
         }
 
         [FirestoreProperty]
@@ -21,6 +21,6 @@ namespace Blockchain.Domain.Entities
         [FirestoreProperty]
         public string To { get; set; }
         [FirestoreProperty]
-        public double Amout { get; set; }
+        public double Amount { get; set; }
     }
 }

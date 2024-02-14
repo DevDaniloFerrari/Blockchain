@@ -1,4 +1,5 @@
 ﻿using Blockchain.Domain.Entities;
+using Blockchain.Repository;
 using Blockchain.Shared;
 using Google.Cloud.Firestore;
 using Newtonsoft.Json;
@@ -60,6 +61,7 @@ async Task ProcessBlock(string message)
             block.Header.Nonce = nonce;
             block.Header.BlockHash = blockHash;
 
+            ChangeUsersAmount(block.Payload.Data);
             AddToChain(block).Wait();
             Console.WriteLine($"Mined block {block.Payload.Sequence} in {totalTime} seconds. Hash: {blockHash} ({nonce} attempts)");
 
@@ -81,8 +83,30 @@ async Task AddToChain(Block blok)
     var db = FirestoreDb.Create("blockchain-b2f62");
 
     var documentReference = db.Collection("blockchain");
-
     await documentReference.AddAsync(blok);
 }
+
+async void ChangeUsersAmount(Data data)
+{
+    using var context = new AppDbContext();
+
+    var fromUser = context.Users.Where(x => x.Id.ToString() == data.From).FirstOrDefault();
+    var toUser = context.Users.Where(x => x.Id.ToString() == data.To).FirstOrDefault();
+
+    if (fromUser == null || toUser == null)
+        return;
+
+    if (fromUser.Balance < data.Amount)
+        return;
+
+    fromUser.RemoveMoney(data.Amount);
+    toUser.AddMoney(data.Amount);
+
+    context.Users.Update(fromUser);
+    context.Users.Update(toUser);
+
+    context.SaveChanges();
+}
+
 
 Console.Read();

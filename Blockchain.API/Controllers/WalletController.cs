@@ -12,7 +12,7 @@ namespace Blockchain.API.Controllers
         [HttpPost(Name = "Send Money")]
         public IActionResult SendMoney([FromServices] IWalletService service, [FromBody] SendMoneyRequest request)
         {
-            service.SendMoney(request.From, request.To, request.Amout);
+            service.SendMoney(request.From, request.To, request.Amount);
             return Ok();
         }
     }
