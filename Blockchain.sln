@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockchain.Infrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockchain.Miner", "Blockchain.Miner\Blockchain.Miner.csproj", "{BF3FEF11-8FC2-4DDD-A130-E3CFEBB9499D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blockchain.Shared", "Blockchain.Shared\Blockchain.Shared.csproj", "{B8BC7220-C83E-4FBB-A6A3-F21791084168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockchain.Shared", "Blockchain.Shared\Blockchain.Shared.csproj", "{B8BC7220-C83E-4FBB-A6A3-F21791084168}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0D494B00-0A94-4D79-A364-7A1909A0557B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{B8BC7220-C83E-4FBB-A6A3-F21791084168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8BC7220-C83E-4FBB-A6A3-F21791084168}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8BC7220-C83E-4FBB-A6A3-F21791084168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D494B00-0A94-4D79-A364-7A1909A0557B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D494B00-0A94-4D79-A364-7A1909A0557B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D494B00-0A94-4D79-A364-7A1909A0557B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D494B00-0A94-4D79-A364-7A1909A0557B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

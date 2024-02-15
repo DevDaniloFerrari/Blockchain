@@ -7,18 +7,18 @@ namespace Blockchain.Application.Services
     public class WalletService : IWalletService
     {
         private readonly IQueueService _queueService;
+        private readonly AppDbContext _db;
 
-        public WalletService(IQueueService queueService)
+        public WalletService(IQueueService queueService, AppDbContext db)
         {
             _queueService = queueService;
+            _db = db;
         }
 
         public async Task SendMoney(string from, string to, double amount)
         {
-            using var context = new AppDbContext();
-
-            var fromUser = context.Users.Where(x => x.Id.ToString() == from).FirstOrDefault();
-            var toUser = context.Users.Where(x => x.Id.ToString() == to).FirstOrDefault();
+            var fromUser = _db.Users.Where(x => x.Id.ToString() == from).FirstOrDefault();
+            var toUser = _db.Users.Where(x => x.Id.ToString() == to).FirstOrDefault();
 
             if (fromUser == null || toUser == null ) 
                 return;

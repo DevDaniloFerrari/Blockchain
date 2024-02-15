@@ -6,13 +6,16 @@ namespace Blockchain.Application.Services
 {
     public class UserService : IUserService
     {
+        private readonly AppDbContext _db;
+        public UserService(AppDbContext db)
+        {
+            _db = db;
+        }
         public async Task<Guid> Create(User user)
         {
-            using var context = new AppDbContext();
+            await _db.Users.AddAsync(user);
 
-            await context.Users.AddAsync(user);
-
-            await context.SaveChangesAsync();
+            await _db.SaveChangesAsync();
 
             return user.Id;
         }
