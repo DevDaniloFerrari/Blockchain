@@ -13,7 +13,7 @@ namespace Blockchain.Infrastructure.Services
         {
             var factory = new ConnectionFactory
             {
-                HostName = "localhost"
+                HostName = "rabbitmq"
             };
             
             var connection = factory.CreateConnection();
@@ -37,7 +37,7 @@ namespace Blockchain.Infrastructure.Services
         {
             var factory = new ConnectionFactory
             {
-                HostName = "localhost"
+                HostName = "rabbitmq"
             };
 
             var connection = factory.CreateConnection();
