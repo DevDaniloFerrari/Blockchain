@@ -4,7 +4,6 @@ using Blockchain.Domain.Services;
 using Blockchain.Engine;
 using Blockchain.Infrastructure.Services;
 using Blockchain.Repository;
-using Google.Api;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +17,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
-//builder.Services.AddHostedService<BlockchainEngine>();
-//builder.Services.AddHostedService<TransactionsProcessor>();
+builder.Services.AddHostedService<BlockchainEngine>();
+builder.Services.AddHostedService<TransactionsProcessor>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -32,11 +31,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
     app.ApplyMigrations();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
@@ -45,4 +44,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
