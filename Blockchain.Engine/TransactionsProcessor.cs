@@ -23,7 +23,7 @@ namespace Blockchain.Engine
         {
             var factory = new ConnectionFactory
             {
-                HostName = "rabbitmq"
+                Uri = new Uri(Environment.GetEnvironmentVariable("RABBITMQ_URI"))
             };
 
             using var connection = factory.CreateConnection();

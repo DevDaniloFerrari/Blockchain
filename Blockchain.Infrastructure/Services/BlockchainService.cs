@@ -12,7 +12,11 @@ namespace Blockchain.Infrastructure.Services
 
         public BlockchainService()
         {
-            _db = FirestoreDb.Create("blockchain-b2f62");
+            _db = new FirestoreDbBuilder
+            {
+                ProjectId = Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID"),
+                JsonCredentials = Environment.GetEnvironmentVariable("FIREBASE_JSON_CREDENTIALS")
+            }.Build();
 
             var query = _db.Collection(Collection).OrderByDescending("Payload.Timestamp").Limit(1);
 
