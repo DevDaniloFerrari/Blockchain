@@ -10,10 +10,11 @@ namespace Blockchain.API.Controllers
     {
 
         [HttpPost(Name = "Create User")]
-        public async Task<Guid> Create([FromServices] IUserService service, [FromBody] string name)
+        public async Task<string> Create([FromServices] IUserService service, [FromBody] string name)
         {
             var user = new User(name);
-            return await service.Create(user);
+            await service.Create(user);
+            return "test";
         }
     }
 }
