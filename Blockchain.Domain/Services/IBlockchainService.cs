@@ -6,5 +6,6 @@ namespace Blockchain.Domain.Services
     {
         public Task CreateBlockchain();
         public Block CreateBlock(Data data);
+
     }
 }
