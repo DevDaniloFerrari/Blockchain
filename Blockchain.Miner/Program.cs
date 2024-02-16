@@ -2,14 +2,24 @@
 using Blockchain.Repository;
 using Blockchain.Shared;
 using Google.Cloud.Firestore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
+var services = new ServiceCollection();
+
+services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=35.198.7.234;Database=blockchain;User Id=sqlserver;Password=sqlserver;MultipleActiveResultSets=true;Encrypt=False"));
+
+var provider = services.BuildServiceProvider();
+
+using var context = provider.GetRequiredService<AppDbContext>();
+
 var factory = new ConnectionFactory
 {
-    HostName = "rabbitmq"
+    Uri = new Uri("amqps://eoivswjo:sT_61rvaXlADxuLMiDO2w3-jx-nVzYq3@porpoise.rmq.cloudamqp.com/eoivswjo")
 };
 
 using var connection = factory.CreateConnection();
@@ -88,8 +98,6 @@ async Task AddToChain(Block blok)
 
 async void ChangeUsersAmount(Data data)
 {
-    using var context = new AppDbContext();
-
     var fromUser = context.Users.Where(x => x.Id.ToString() == data.From).FirstOrDefault();
     var toUser = context.Users.Where(x => x.Id.ToString() == data.To).FirstOrDefault();
 
@@ -106,7 +114,7 @@ async void ChangeUsersAmount(Data data)
     context.Users.Update(toUser);
 
     context.SaveChanges();
-}
 
+}
 
 Console.Read();
