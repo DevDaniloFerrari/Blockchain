@@ -16,7 +16,6 @@ namespace Blockchain.Engine
         {
             await _blockchainService.CreateBlockchain();
 
-
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Task.Delay(1000, stoppingToken);
