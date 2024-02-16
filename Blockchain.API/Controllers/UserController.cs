@@ -14,7 +14,7 @@ namespace Blockchain.API.Controllers
         {
             var user = new User(name);
             await service.Create(user);
-            return "test2";
+            return "test3";
         }
     }
 }
