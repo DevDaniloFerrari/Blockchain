@@ -23,3 +23,5 @@ I deployed the project on the Google Cloud Platform using the following services
 - **Cloud Build:** Used for continuous integration (CI) and integrated continuous deployment (CD)
 - **Google Cloud SQL:** Instance of SqlServer
 - **Artifact Registry:** Used for storing Docker images during the testing period
+
+![Blockchain drawio](https://github.com/DevDaniloFerrari/Blockchain/assets/40414119/fa04e1af-ed3d-420b-91f2-f10335a5ea91)
