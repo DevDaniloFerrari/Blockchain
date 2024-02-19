@@ -25,3 +25,5 @@ I deployed the project on the Google Cloud Platform using the following services
 - **Artifact Registry:** Used for storing Docker images during the testing period
 
 ![Blockchain drawio](https://github.com/DevDaniloFerrari/Blockchain/assets/40414119/fa04e1af-ed3d-420b-91f2-f10335a5ea91)
+
+![Blockchain-CD Flow drawio](https://github.com/DevDaniloFerrari/Blockchain/assets/40414119/f67d70e3-34fc-47e6-b3e5-53b2e823bb39)
