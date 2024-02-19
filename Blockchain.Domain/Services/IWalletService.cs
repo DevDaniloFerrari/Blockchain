@@ -2,6 +2,6 @@
 {
     public interface IWalletService
     {
-        public Task SendMoney(string from, string to, double amount);
+        public void SendMoney(string from, string to, double amount);
     }
 }

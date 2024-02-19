@@ -15,7 +15,7 @@ namespace Blockchain.Application.Services
             _db = db;
         }
 
-        public async Task SendMoney(string from, string to, double amount)
+        public void SendMoney(string from, string to, double amount)
         {
             var fromUser = _db.Users.Where(x => x.Id.ToString() == from).FirstOrDefault();
             var toUser = _db.Users.Where(x => x.Id.ToString() == to).FirstOrDefault();
