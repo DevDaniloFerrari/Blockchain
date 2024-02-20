@@ -7,9 +7,10 @@ In this project, I developed a POC of blockchain to simulate a money transaction
 - SQL Server 2022
 - RabbitMQ
 - Firebase
-- EntityFrameworkCore 8
+- Entity Framework Core 8
 - xUnit
 - Moq
+- JWT
 
 ## Development Tools:
 - Docker: Used to run the application
@@ -24,6 +25,6 @@ I deployed the project on the Google Cloud Platform using the following services
 - **Google Cloud SQL:** Instance of SqlServer
 - **Artifact Registry:** Used for storing Docker images during the testing period
 
-![Blockchain drawio](https://github.com/DevDaniloFerrari/Blockchain/assets/40414119/fa04e1af-ed3d-420b-91f2-f10335a5ea91)
+![Blockchain-Project Architecture drawio](https://github.com/DevDaniloFerrari/Blockchain/assets/40414119/14c3045a-e467-499c-a69f-af16184bb3f0)
 
-![Blockchain-CD Flow drawio](https://github.com/DevDaniloFerrari/Blockchain/assets/40414119/f67d70e3-34fc-47e6-b3e5-53b2e823bb39)
+![Blockchain-CI CD Flow drawio](https://github.com/DevDaniloFerrari/Blockchain/assets/40414119/779a5d0c-7afd-408e-a7d8-625393c5e2c7)
