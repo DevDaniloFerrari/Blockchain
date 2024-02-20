@@ -22,8 +22,8 @@ namespace Blockchain.Test
             var _db = new Mock<AppDbContext>();
             var users = new List<User>
             {
-                new ("user 1"),
-                new ("user 2")
+                new ("user 1", "email1"),
+                new ("user 2", "email2"),
             };
 
             _db.Setup(x => x.Users)
@@ -39,8 +39,8 @@ namespace Blockchain.Test
         [Fact]
         public void WalletService_SendMoney_ShouldNotProcessWhenBalanceLessThanAmout()
         {
-            var user1 = new User("user 1");
-            var user2 = new User("user 2");
+            var user1 = new User("user 1", "email1");
+            var user2 = new User("user 2", "email2");
 
             var _db = new Mock<AppDbContext>();
             var users = new List<User>
@@ -62,10 +62,10 @@ namespace Blockchain.Test
         [Fact]
         public void WalletService_SendMoney_ShouldProcessWhenBalanceEqualThanAmout()
         {
-            var user1 = new User("user 1");
+            var user1 = new User("user 1", "email1");
             user1.AddMoney(10);
 
-            var user2 = new User("user 2");
+            var user2 = new User("user 2", "email2");
 
             var _db = new Mock<AppDbContext>();
             var users = new List<User>

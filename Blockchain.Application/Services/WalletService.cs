@@ -20,11 +20,11 @@ namespace Blockchain.Application.Services
             var fromUser = _db.Users.Where(x => x.Id.ToString() == from).FirstOrDefault();
             var toUser = _db.Users.Where(x => x.Id.ToString() == to).FirstOrDefault();
 
-            if (fromUser == null || toUser == null ) 
-                return;
+            if (fromUser == null || toUser == null )
+                throw new Exception("User not found.");
 
             if (fromUser.Balance < amount)
-                return;
+                throw new Exception("Balance cannot be less than amount.");
 
             var data = new Data(from, to, amount);
 
