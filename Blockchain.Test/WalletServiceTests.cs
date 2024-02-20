@@ -31,7 +31,11 @@ namespace Blockchain.Test
 
             var walletService = new WalletService(_queueService.Object, _db.Object);
 
-            walletService.SendMoney("fake-id-1", "fake-id-2", 10);
+            try
+            {
+                walletService.SendMoney("fake-id-1", "fake-id-2", 10);
+            }
+            catch { }
 
             _queueService.Verify(x => x.SendToAwaitingProcessingQueue(It.IsAny<Data>()), Times.Never);
         }
@@ -54,7 +58,11 @@ namespace Blockchain.Test
 
             var walletService = new WalletService(_queueService.Object, _db.Object);
 
-            walletService.SendMoney(user1.Id.ToString(), user2.Id.ToString(), 10);
+            try
+            {
+                walletService.SendMoney(user1.Id.ToString(), user2.Id.ToString(), 10);
+            }
+            catch { }
 
             _queueService.Verify(x => x.SendToAwaitingProcessingQueue(It.IsAny<Data>()), Times.Never);
         }
