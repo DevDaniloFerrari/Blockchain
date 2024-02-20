@@ -72,6 +72,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWalletService, WalletService>();
 builder.Services.AddSingleton<IQueueService, QueueService>();
 builder.Services.AddSingleton<IBlockchainService, BlockchainService>();
+builder.Services.AddScoped<IClaimsProvider, HttpContextClaimsProvider>();
 
 var app = builder.Build();
 

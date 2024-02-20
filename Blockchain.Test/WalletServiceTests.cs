@@ -9,10 +9,12 @@ namespace Blockchain.Test
 {
     public class WalletServiceTests
     {
+        private readonly Mock<IClaimsProvider> _claimsProvider;
         private readonly Mock<IQueueService> _queueService;
 
         public WalletServiceTests()
         {
+            _claimsProvider = new Mock<IClaimsProvider>();
             _queueService = new Mock<IQueueService>();
         }
 
@@ -29,7 +31,7 @@ namespace Blockchain.Test
             _db.Setup(x => x.Users)
                 .ReturnsDbSet(users);
 
-            var walletService = new WalletService(_queueService.Object, _db.Object);
+            var walletService = new WalletService(_claimsProvider.Object, _queueService.Object, _db.Object);
 
             try
             {
@@ -56,7 +58,7 @@ namespace Blockchain.Test
             _db.Setup(x => x.Users)
                 .ReturnsDbSet(users);
 
-            var walletService = new WalletService(_queueService.Object, _db.Object);
+            var walletService = new WalletService(_claimsProvider.Object, _queueService.Object, _db.Object);
 
             try
             {
@@ -70,6 +72,11 @@ namespace Blockchain.Test
         [Fact]
         public void WalletService_SendMoney_ShouldProcessWhenBalanceEqualThanAmout()
         {
+            var claimsPrinciple = new ClaimsPrinciple("user 1", "email1");
+
+            _claimsProvider.Setup(x => x.ClaimsPrinciple)
+                .Returns(claimsPrinciple);
+
             var user1 = new User("user 1", "email1");
             user1.AddMoney(10);
 
@@ -85,7 +92,7 @@ namespace Blockchain.Test
             _db.Setup(x => x.Users)
                 .ReturnsDbSet(users);
 
-            var walletService = new WalletService(_queueService.Object, _db.Object);
+            var walletService = new WalletService(_claimsProvider.Object, _queueService.Object, _db.Object);
 
             walletService.SendMoney(user1.Id.ToString(), user2.Id.ToString(), 10);
 
